@@ -24,7 +24,9 @@ def start_messages(message: types.Message):
         user.save()
     if user.status:
         tbot.send_message(message.from_user.id,
-                          'Мы против войны! Если ты тоже, то присылай свои фото/видео или мысли сюда')
+                          'Привет. Мы команда StandForUkraine. Если у тебя есть идеи ИТ проектов, которые помогут '
+                          'нашей стране дать отпор врагу или собрать больше поддержки, пожалуйста, поделись в виде '
+                          'одного сообщения.')
     else:
         tbot.send_message(message.from_user.id,
                           'Ваш акаунт заблоковано')
@@ -62,11 +64,7 @@ def text_messages(message: types.Message):
             if len(proofs) < conf.max_message:
                 conf = BotConf.objects.last()
                 ms = tbot.forward_message(conf.chat_id, message.chat.id, message.id)
-                tbot.send_message(chat_id=message.from_user.id, text='«Спасибо! Пока мы обрабатываем ваше сообщение '
-                                                                     'вы можете помочь в распространении информации - '
-                                                                     'пересылайте новости с нашего канала своим друзьям, '
-                                                                     'поговорите с '
-                                                                     'родителями и знакомыми. Помогите остановить эту войну!»')
+                tbot.send_message(chat_id=message.from_user.id, text='«Спасибо!')
                 if message.content_type == 'document':
                     doc_type = message.document.mime_type
                     if 'image' in doc_type:
