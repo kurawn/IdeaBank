@@ -64,7 +64,7 @@ def text_messages(message: types.Message):
             if len(proofs) < conf.max_message:
                 conf = BotConf.objects.last()
                 ms = tbot.forward_message(conf.chat_id, message.chat.id, message.id)
-                tbot.send_message(chat_id=message.from_user.id, text='«Спасибо!')
+                tbot.send_message(chat_id=message.from_user.id, text='«Спасибо! При необходимости мы с вами свяжемся!')
                 if message.content_type == 'document':
                     doc_type = message.document.mime_type
                     if 'image' in doc_type:
