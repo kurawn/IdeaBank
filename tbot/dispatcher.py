@@ -58,7 +58,7 @@ def text_messages(message: types.Message):
         if user.status:
             startdate = datetime.now()
             enddate = startdate - timedelta(hours=1)
-            proofs = Proof.objects.filter(date_create__gte=enddate).all()
+            proofs = Proof.objects.filter(date_create__gte=enddate, user=user).all()
             conf = BotConf.objects.last()
 
             if len(proofs) < conf.max_message:
@@ -215,11 +215,11 @@ def back_and_next_keyboard():
     return keyboard
 
 
-@tbot.my_chat_member_handler(func=lambda message: True)
-def add_chat(message: types.Message):
-    conf = BotConf.objects.last()
-    conf.chat_id = message.chat.id
-    conf.save()
+# @tbot.my_chat_member_handler(func=lambda message: True)
+# def add_chat(message: types.Message):
+#     conf = BotConf.objects.last()
+#     conf.chat_id = message.chat.id
+#     conf.save()
 
 
 @tbot.callback_query_handler(func=lambda call: call.data.startswith('send'))
